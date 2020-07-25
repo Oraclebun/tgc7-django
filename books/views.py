@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from .models import Book, Author
 from .forms import BookForm, AuthorForm
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 # A view (in other words, a view function) refers to a function
@@ -24,7 +25,7 @@ def show_books(request):
         'books': all_books
     })
 
-
+@login_required
 def create_book(request):
 
     # check if we are submitting the form

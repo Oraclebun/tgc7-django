@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "books",
-    "reviews",
-    "forum"
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'books',
+    'reviews',
+    'forum'
 ]
 
 MIDDLEWARE = [
@@ -69,6 +73,37 @@ TEMPLATES = [
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID=1
+
+#allow user to log in by their username
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+#does the user need to register their email too
+ACCOUNT_EMAIL_REQUIRED = True
+
+#does the user need to verify their email
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+
+#min length of user name
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+
+#which url to go to when user successfully login
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/success'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 WSGI_APPLICATION = 'BookReviewsProject.wsgi.application'
 
